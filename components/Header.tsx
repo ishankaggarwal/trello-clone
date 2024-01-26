@@ -5,8 +5,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 function Header() {
   return (
     <header>
-      <div className="flex flex-col md:flex-row items-center p-5 bg-gray-500/10 rounded-b-2xl justify-center">
-        <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-br from-pink-400 to-[#0055D1] rounded-md filter blur-3xl opacity-50 -z-50" />
+      <div className="flex flex-col md:flex-row items-center p-5 rounded-b-2xl justify-center">
+        <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-br from-pink-400 to-[#0055D1] rounded-md filter blur-3xl opacity-60 -z-50" />
         <Image
           alt="logo"
           src="/Trello_logo.svg"

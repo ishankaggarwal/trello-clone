@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Trello",
   description: "Next.js Trello clone app",
+  icons: {
+    shortcut: "/trello.png",
+  },
 };
 
 export default function RootLayout({
