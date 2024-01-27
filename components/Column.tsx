@@ -21,8 +21,8 @@ function Column({ id, todos, index }: Props) {
     <Draggable draggableId={id} index={index}>
       {(provided) => (
         <div
-          {...provided.dragHandleProps}
           {...provided.draggableProps}
+          {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
           <Droppable droppableId={index.toString()} type="card">
