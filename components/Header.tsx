@@ -4,12 +4,33 @@ import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useBoardStore } from "@/store/BoardStore";
+import { useEffect, useState } from "react";
+import fetchSuggestion from "@/lib/fetchSuggestion";
+import { cn } from "@/lib/utils";
 
 function Header() {
-  const [searchString, setSearchString] = useBoardStore((state) => [
+  const [loading, setLoading] = useState<boolean>(false);
+  const [suggestion, setSuggestion] = useState<string>("");
+  const [board, searchString, setSearchString] = useBoardStore((state) => [
+    state.board,
     state.searchString,
     state.setSearchString,
   ]);
+
+  useEffect(() => {
+    if (board.columns.size === 0) return;
+    setLoading(true);
+    setSuggestion("");
+
+    const fetchSuggestionFunc = async () => {
+      await fetchSuggestion(board)
+        .then((res) => res.json())
+        .then((suggestion) => setSuggestion(suggestion));
+      setLoading(false);
+    };
+
+    fetchSuggestionFunc();
+  }, [board]);
 
   return (
     <header>
@@ -20,6 +41,7 @@ function Header() {
           src="/Trello_logo.svg"
           width={300}
           height={100}
+          priority={true}
           className="w-44 md:w-56 md:pd-0"
         />
 
@@ -44,8 +66,15 @@ function Header() {
       </div>
       <div className="flex items-center justify-center px-5 md:py-5">
         <p className="flex items-center text-sm font-light shadow-xl rounded-xl w-fit bg-white p-3 py-4 italic max-w-3xl text-[#0055D1]">
-          <UserCircleIcon className="h-10 w-10 text-[#0055D1] mr-1" />
-          GPT is summarizing your tasks for the day...
+          <UserCircleIcon
+            className={cn(
+              "h-10 w-10 text-[#0055D1] mr-1",
+              loading ? "animate-spin" : ""
+            )}
+          />
+          {suggestion && !loading
+            ? suggestion
+            : "GPT is summarizing your tasks for the day..."}
         </p>
       </div>
     </header>
