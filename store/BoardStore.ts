@@ -12,13 +12,10 @@ interface BoardState {
     setNewTaskInput: (input: string) => void;
     newTaskType: TypedColumn;
     setNewTaskType: (task: TypedColumn) => void;
-
     searchString: string;
     setSearchString: (searchString: string) => void;
-
     image: File | null;
     setImage: (image: File | null) => void;
-
     addTask: (todo: string, columnId: TypedColumn, image?: File | null) => void;
     deleteTask: (taskIndex: number, todoId: Todo, id: TypedColumn) => void;
 }
